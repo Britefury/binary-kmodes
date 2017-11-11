@@ -222,6 +222,7 @@ class BinaryKModes(object):
                 self._notify_cluster_assignments_changed()
                 cluster_modes = self._fill_empty_clusters(Xb, cluster_modes)
 
-        self.cluster_centers_ = np.unpackbits(
-            cluster_modes, axis=1)[:, :X.shape[1]]
+        self.cluster_centers_ = np.unpackbits(cluster_modes, axis=1)
+        if not packed_input:
+            self.cluster_centers_ = self.cluster_centers_[:, :X.shape[1]]
         return self
